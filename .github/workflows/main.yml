@@ -1,0 +1,38 @@
+name: Daily Little Lights Story
+
+on:
+  schedule:
+    - cron: '30 0 * * *'   # 6:00 AM IST (UTC+5:30) = 00:30 UTC
+  workflow_dispatch:         # allows manual trigger from GitHub Actions tab
+
+jobs:
+  send-story:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Send today's story
+        env:
+          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
+          TWILIO_FROM: ${{ secrets.TWILIO_FROM }}
+          TWILIO_TO: ${{ secrets.TWILIO_TO }}
+        run: python send_story.py
+
+      - name: Commit updated tracker
+        run: |
+          git config user.name "Little Lights Bot"
+          git config user.email "bot@little-lights"
+          git add story_tracker.json
+          git diff --cached --quiet || git commit -m "Update story tracker [skip ci]"
+          git push
