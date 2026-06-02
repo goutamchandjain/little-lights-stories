@@ -5,6 +5,9 @@ on:
     - cron: '30 0 * * *'   # 6:00 AM IST (UTC+5:30) = 00:30 UTC
   workflow_dispatch:         # allows manual trigger from GitHub Actions tab
 
+permissions:
+  contents: write
+
 jobs:
   send-story:
     runs-on: ubuntu-latest
