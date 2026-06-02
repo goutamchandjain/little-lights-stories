@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌟 Little Lights — Indian Stories for Kids</title>
+<style>
+  :root {
+    --saffron: #FF6B1A;
+    --gold: #FFD700;
+    --deep-blue: #1A237E;
+    --teal: #00897B;
+    --rose: #E91E63;
+    --light-bg: #FFF8F0;
+    --card-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--light-bg);
+    min-height: 100vh;
+  }
+  header {
+    background: linear-gradient(135deg, #FF6B1A, #FFD700, #E91E63);
+    padding: 2rem 1rem 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: "✨🌺✨";
+    position: absolute;
+    top: 8px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.2rem;
+    opacity: 0.6;
+  }
+  header h1 {
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    color: white;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+    font-weight: 900;
+    margin-top: 0.5rem;
+  }
+  header p {
+    color: rgba(255,255,255,0.92);
+    font-size: 1.05rem;
+    margin-top: 0.4rem;
+  }
+  .controls {
+    background: white;
+    padding: 1.2rem 1rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 0.6rem;
+  }
+  .filter-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #666;
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.2rem;
+  }
+  .filter-btn {
+    border: 2px solid #ddd;
+    background: white;
+    padding: 0.45rem 1.1rem;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 0.88rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    color: #444;
+  }
+  .filter-btn:hover { transform: translateY(-1px); }
+  .filter-btn.active {
+    color: white;
+    border-color: transparent;
+  }
+  .age-btn.active { background: var(--deep-blue); }
+  .trad-btn.active { background: var(--teal); }
+  .reset-btn {
+    background: #f5f5f5;
+    border: 2px solid #eee;
+    padding: 0.35rem 1rem;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: #888;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .reset-btn:hover { background: #eee; }
+  .story-count {
+    text-align: center;
+    font-size: 0.82rem;
+    color: #999;
+    margin-top: 0.3rem;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.4rem;
+    padding: 1.8rem 1.2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.22s, box-shadow 0.22s;
+    position: relative;
+  }
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 36px rgba(0,0,0,0.18);
+  }
+  .card-banner {
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.5rem;
+    position: relative;
+  }
+  .card-age-badge {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    background: rgba(255,255,255,0.88);
+    border-radius: 999px;
+    padding: 0.2rem 0.65rem;
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: #333;
+  }
+  .card-trad-badge {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    background: rgba(255,255,255,0.88);
+    border-radius: 999px;
+    padding: 0.2rem 0.65rem;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #555;
+  }
+  .card-body { padding: 1rem 1.1rem 1.2rem; }
+  .card-title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #222;
+    margin-bottom: 0.4rem;
+    line-height: 1.3;
+  }
+  .card-preview {
+    font-size: 0.84rem;
+    color: #666;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.9rem;
+    padding-top: 0.7rem;
+    border-top: 1px solid #f0f0f0;
+  }
+  .card-moral {
+    font-size: 0.75rem;
+    color: #888;
+    font-style: italic;
+  }
+  .read-btn {
+    background: linear-gradient(135deg, #FF6B1A, #E91E63);
+    color: white;
+    border: none;
+    border-radius: 999px;
+    padding: 0.38rem 1rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .hidden { display: none !important; }
+
+  /* Modal */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: white;
+    border-radius: 24px;
+    max-width: 640px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: popIn 0.28s ease;
+  }
+  @keyframes popIn {
+    from { transform: scale(0.85); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  .modal-banner {
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    border-radius: 24px 24px 0 0;
+  }
+  .modal-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: rgba(255,255,255,0.85);
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    font-weight: 700;
+    z-index: 10;
+  }
+  .modal-body { padding: 1.4rem 1.6rem 1.8rem; }
+  .modal-meta {
+    display: flex;
+    gap: 0.6rem;
+    margin-bottom: 0.8rem;
+    flex-wrap: wrap;
+  }
+  .badge {
+    border-radius: 999px;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+  .badge-age { background: #EEF2FF; color: var(--deep-blue); }
+  .badge-trad { background: #E0F2F1; color: var(--teal); }
+  .modal-title {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #111;
+    margin-bottom: 1rem;
+    line-height: 1.25;
+  }
+  .story-text {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: #333;
+    white-space: pre-wrap;
+  }
+  .think-box {
+    background: linear-gradient(135deg, #FFF3E0, #FCE4EC);
+    border-radius: 16px;
+    padding: 1.1rem 1.3rem;
+    margin-top: 1.4rem;
+  }
+  .think-box h3 {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #E65100;
+    margin-bottom: 0.5rem;
+  }
+  .think-box p {
+    font-size: 0.92rem;
+    color: #333;
+    line-height: 1.6;
+  }
+  .moral-box {
+    background: #F3E5F5;
+    border-left: 4px solid #9C27B0;
+    border-radius: 8px;
+    padding: 0.9rem 1.1rem;
+    margin-top: 1rem;
+  }
+  .moral-box h4 {
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: #7B1FA2;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 0.3rem;
+  }
+  .moral-box p { font-size: 0.9rem; color: #444; font-style: italic; }
+  .wa-btn {
+    display: block;
+    margin-top: 1.2rem;
+    background: #25D366;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 0.8rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+    transition: background 0.2s;
+  }
+  .wa-btn:hover { background: #128C7E; }
+  .no-stories {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #aaa;
+    font-size: 1.1rem;
+    grid-column: 1/-1;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🌟 Little Lights</h1>
+  <p>Indian Stories for Curious Kids • Ages 2–10</p>
+</header>
+
+<div class="controls">
+  <div class="filter-row">
+    <span class="filter-label">Age Group</span>
+    <button class="filter-btn age-btn active" data-age="all">All Ages</button>
+    <button class="filter-btn age-btn" data-age="2-4">🧸 Ages 2–4</button>
+    <button class="filter-btn age-btn" data-age="5-7">🚀 Ages 5–7</button>
+    <button class="filter-btn age-btn" data-age="8-10">📚 Ages 8–10</button>
+  </div>
+  <div class="filter-row">
+    <span class="filter-label">Tradition</span>
+    <button class="filter-btn trad-btn active" data-trad="all">All</button>
+    <button class="filter-btn trad-btn" data-trad="Hindu">🕉️ Hindu</button>
+    <button class="filter-btn trad-btn" data-trad="Ramayana">🏹 Ramayana</button>
+    <button class="filter-btn trad-btn" data-trad="Mahabharata">⚔️ Mahabharata</button>
+    <button class="filter-btn trad-btn" data-trad="Jain">☮️ Jain</button>
+    <button class="filter-btn trad-btn" data-trad="Sikh">🪯 Sikh</button>
+    <button class="filter-btn trad-btn" data-trad="Islamic">☪️ Islamic</button>
+  </div>
+  <div class="story-count" id="storyCount"></div>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal">
+    <button class="modal-close" id="modalClose">✕</button>
+    <div class="modal-banner" id="modalBanner"></div>
+    <div class="modal-body">
+      <div class="modal-meta" id="modalMeta"></div>
+      <div class="modal-title" id="modalTitle"></div>
+      <div class="story-text" id="modalStory"></div>
+      <div class="think-box">
+        <h3>🤔 Think About It!</h3>
+        <p id="modalThink"></p>
+      </div>
+      <div class="moral-box">
+        <h4>✨ The Lesson</h4>
+        <p id="modalMoral"></p>
+      </div>
+      <button class="wa-btn" id="waCopyBtn">📋 Copy for WhatsApp</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const STORIES = [
+  // ── AGE 2–4 ──────────────────────────────────────────────────────
+  {
+    id: 1,
+    title: "Ganesha and the Greedy Moon",
+    age: "2-4",
+    tradition: "Hindu",
+    emoji: "🐘",
+    color: "#FFF9C4",
+    preview: "One night, Ganesha ate SO many sweet laddoos that he fell down — and the Moon laughed!",
+    story: `🌙 One full-moon night, little Ganesha — the elephant-headed god — went to a big feast. 🎉
+
+There were mountains of round, golden laddoos! 🟡🟡🟡
+
+Ganesha loved laddoos SO much. He ate one… then two… then TEN! 😋
+
+His big tummy became SO round that when he tried to ride his tiny mouse friend home — PLOP! — he fell right off! 🐭💨
+
+The Moon saw this and started to laugh. "Ha ha ha! Look at the fat elephant!" 😂🌕
+
+Ganesha felt sad. 😢 He looked up at the Moon and said, "Moon, it is not kind to laugh at someone who falls. You will become dark so no one laughs at YOU!"
+
+And that is why the Moon goes from big to small every month — to remember never to be unkind. 🌕🌔🌓🌒🌑`,
+    think: "Have you ever laughed at someone when they fell? How do you think they felt? What could you do instead?",
+    moral: "Kindness matters more than being clever. Never laugh at someone else's struggles."
+  },
+  {
+    id: 2,
+    title: "Baby Krishna's Butter Secret",
+    age: "2-4",
+    tradition: "Hindu",
+    emoji: "🧈",
+    color: "#E3F2FD",
+    preview: "Mama Yashoda kept finding her butter pots empty. Who could the butter thief be? 🍶",
+    story: `🌅 In a village called Vrindavan, little Krishna had the BIGGEST secret. 🤫
+
+Every morning, Mama Yashoda would wake up and find her butter pots empty! 🫙➡️😮
+
+"Where is all my butter?" she would wonder.
+
+But little Krishna had blue skin, curly hair, and the most mischievous smile. 😏
+
+He would sneak into the kitchen — tip-toe, tip-toe! 🦶🦶 — climb up the shelves, and eat all the butter! 😋
+
+One day, Mama Yashoda caught him! His face was covered in white butter. Even the monkeys around him had butter on their noses! 🐒🐒
+
+"Krishna! Did you eat my butter?" she asked.
+
+Krishna looked at Mama, put his little hand over his mouth… and started LAUGHING. 😂
+
+Mama Yashoda couldn't help but laugh too. ❤️
+
+She hugged him and said, "You mischievous boy! Share the butter — don't take it all yourself!"
+
+And Krishna promised. He brought butter for ALL the children in the village that day. 🧈👶👧🧒`,
+    think: "Krishna loved butter so much he forgot to share. Is there something YOU love to eat? Can you share it with someone today?",
+    moral: "Sharing what we love makes everyone — including us — happier."
+  },
+  {
+    id: 3,
+    title: "Guru Nanak's Magic Langar",
+    age: "2-4",
+    tradition: "Sikh",
+    emoji: "🍲",
+    color: "#E8F5E9",
+    preview: "Guru Nanak's papa gave him money to buy goods. But Nanak used it to feed hungry people!",
+    story: `🌄 Long ago, a young boy named Nanak walked with his father through a village.
+
+His papa gave him some money and said, "Go make a good deal, my son!" 💰
+
+On the way, Nanak saw a group of very hungry men sitting under a tree. Their tummies were growling. 😔
+
+Nanak's heart felt warm and sad at the same time. ❤️
+
+"I know the BEST deal I can make!" he thought. ✨
+
+He ran to the market and bought baskets full of food — rice, dal, roti, vegetables! 🍚🫓🥦
+
+He set up a big spread under the tree and called everyone to eat. "Come! Everyone is welcome! Sat Sri Akal!" 🙏
+
+People came — rich and poor, young and old — and everyone ate together. 🧑‍🤝‍🧑👴👧
+
+When his papa heard, he was first surprised… then he smiled. 🥹
+
+"You are right, Nanak," Papa said. "The best deal is taking care of people."
+
+And that is how the tradition of Langar — the free kitchen where everyone eats together — began! 🍲🍲🍲`,
+    think: "Nanak chose to feed hungry people instead of buying things. Can you think of one way you can help someone today?",
+    moral: "Sharing food and kindness is the greatest gift of all."
+  },
+  {
+    id: 4,
+    title: "Little Mahavir and the Crying Ant",
+    age: "2-4",
+    tradition: "Jain",
+    emoji: "🐜",
+    color: "#F3E5F5",
+    preview: "A tiny ant was stuck in a puddle. Nobody else stopped — but little Mahavir did!",
+    story: `🌿 One sunny morning, little Mahavir was walking in the garden with his friends.
+
+They were laughing and running when suddenly, Mahavir stopped. 🛑
+
+"What's wrong?" his friends asked.
+
+Mahavir pointed to a tiny puddle near their feet. Inside it, a little ant was splashing and struggling! 🐜💦
+
+"It's just an ant," said one friend. "Come, let's play!"
+
+But Mahavir knelt down. Gently — SO gently — he picked up a leaf. 🍃
+
+He held the leaf near the ant. The ant climbed on.
+
+Mahavir placed the leaf carefully on dry ground. The ant wiggled its antennae. It was safe! ✨
+
+"Thank you," the ant seemed to say as it walked away. 🐜
+
+Mahavir's heart felt SO warm inside. 🌞
+
+His friends watched quietly. Then one by one, they came back. "We want to help too," they said.
+
+From that day on, they all walked more slowly and carefully — watching where their feet went. 🦶💕`,
+    think: "Mahavir helped a tiny ant nobody else noticed. Can you look for one small living thing today and be gentle with it?",
+    moral: "Every creature — big or small — deserves kindness and care."
+  },
+  {
+    id: 5,
+    title: "Ibrahim Counts the Stars",
+    age: "2-4",
+    tradition: "Islamic",
+    emoji: "⭐",
+    color: "#E0F7FA",
+    preview: "Little Ibrahim looked up at the sky and wondered: who made all those beautiful stars?",
+    story: `🌙 Every night, little Ibrahim would lie on the soft grass and look up at the sky.
+
+One two three… he tried to count the stars. ⭐🌟✨
+
+"One, two, three, four… so many! I can't count them all!" he giggled.
+
+Ibrahim wondered: who painted the sky with so many sparkly lights?
+
+He asked his mama. "Mama, who made all the stars?"
+
+Mama smiled and sat beside him. "Allah made them, my dear — and He made the moon, the sun, the trees, the birds, and YOU!" 🌙☀️🌳🐦
+
+"He made ME?" Ibrahim's eyes went wide. 👀
+
+"Yes! And He loves you more than all the stars put together." ❤️
+
+Ibrahim looked back up at the sky. There were SO many stars. He tried to imagine love even bigger than that.
+
+He couldn't — but he smiled anyway. 😊
+
+"I love Allah too," he said quietly.
+
+And then he made a little dua — a tiny prayer — before he fell asleep. 🤲💫`,
+    think: "Ibrahim found wonder in the night sky! What is one beautiful thing around you right now that makes you feel amazed?",
+    moral: "Wonder and gratitude open our hearts to the beauty all around us."
+  },
+
+  // ── AGE 5–7 ──────────────────────────────────────────────────────
+  {
+    id: 6,
+    title: "Hanuman's Giant Leap",
+    age: "5-7",
+    tradition: "Ramayana",
+    emoji: "🐒",
+    color: "#FFF3E0",
+    preview: "Sita was trapped on an island far away. Could Hanuman really leap across the entire ocean?",
+    story: `🌊 The ocean stretched forever. Nobody thought anyone could cross it.
+
+Lord Rama's beloved Sita had been taken to Lanka — an island across a vast sea — by the demon king Ravana. 😤
+
+Rama's heart ached. "How will we reach her?" he worried.
+
+His loyal friend Hanuman stepped forward. His eyes burned with devotion. "I will go, my Lord."
+
+The other animals gasped. "The ocean is impossible to cross!"
+
+But Hanuman closed his eyes, thought of Rama, and felt a power rise inside him like a roaring fire. 🔥
+
+He climbed to the top of a mountain. He took a deep breath.
+
+He LEAPED! 💨
+
+His body flew through the clouds, he grew bigger and bigger, and with a mighty WHOOSH, he soared across the entire ocean! 🌊🌊🌊
+
+He landed in Lanka with a THUD! 🏝️
+
+He found Sita, gave her Rama's ring as a sign, and whispered: "Be strong, Mata. Rama is coming for you." 💍
+
+Sita's eyes filled with tears — but they were happy tears. 😭❤️
+
+When Hanuman returned, everyone cheered. Rama held Hanuman's hands and said, "You did the impossible today — not because you are strong, but because you believed."
+
+🐒 Hanuman smiled. "When you believe, my Lord, anything is possible."`,
+    think: "Hanuman thought he couldn't do it — then he believed in himself and did something amazing. Is there something you think you can't do? What might happen if you believed you COULD?",
+    moral: "Faith in yourself — and love for those you care about — can make you do extraordinary things."
+  },
+  {
+    id: 7,
+    title: "Eklavya's Silent Teacher",
+    age: "5-7",
+    tradition: "Mahabharata",
+    emoji: "🏹",
+    color: "#E8EAF6",
+    preview: "No one would teach Eklavya archery. So he built a clay statue… and taught himself!",
+    story: `🌲 Deep in the forest, a young boy named Eklavya dreamed of becoming the world's greatest archer.
+
+He went to the royal teacher Dronacharya and bowed low. "Please teach me archery, Guruji."
+
+Drona looked at Eklavya — he was from a forest tribe, not a prince. Drona shook his head. "I only teach royals."
+
+Eklavya walked away. His heart hurt. But he did not cry for long. 💪
+
+He went deep into the forest, gathered clay, and made a statue of Dronacharya. 🗿
+
+Every single day, he bowed to the statue and said, "You are my teacher." Then he practiced archery — alone — for HOURS. 🏹🏹🏹
+
+Days passed. Weeks. Months.
+
+One day, Drona and his royal students walked into the forest. They saw a dog with an arrow in its open mouth — but the dog was not hurt! Just silenced.
+
+"Who did this?!" Drona was amazed. No one had that kind of skill.
+
+They found Eklavya, covered in dust, still practicing.
+
+"You… you taught yourself?" Drona whispered, stunned.
+
+"You were my teacher," Eklavya said, pointing to the statue. "In my heart, you always were."
+
+Drona's eyes filled with tears. He had underestimated this boy. And Eklavya had proven that no door — not even a closed one — could stop a determined heart. 🌟`,
+    think: "Eklavya couldn't find a teacher, so he created one in his imagination. Have you ever practiced something even when no one helped you? What happened?",
+    moral: "Determination and belief in yourself can teach you more than any classroom."
+  },
+  {
+    id: 8,
+    title: "Mahavir and the Angry Snake",
+    age: "5-7",
+    tradition: "Jain",
+    emoji: "🐍",
+    color: "#F1F8E9",
+    preview: "A deadly snake blocked Mahavir's path and hissed furiously. Everyone ran — but not Mahavir.",
+    story: `🌿 Young Mahavir walked barefoot through the forest, meditating and at peace.
+
+Suddenly — HISSSS! 🐍
+
+A large cobra rose up from the path, hood spread wide, eyes gleaming. It was angry and afraid.
+
+The people behind Mahavir screamed and ran. "Run! It will bite you!"
+
+But Mahavir stopped. He stood completely still. 🧘
+
+He looked at the snake — not with fear, but with deep, gentle eyes. As if to say: "I will not hurt you. I promise."
+
+The cobra swayed. It hissed again. Still Mahavir did not move.
+
+Slowly… slowly… the snake lowered its hood. 🐍⬇️
+
+It slithered off the path and disappeared into the grass.
+
+Everyone came back, mouths open. "How did you do that?!"
+
+Mahavir smiled. "The snake was not evil. It was scared. All living things want to be safe. When I showed it I meant no harm, it felt no need to harm me."
+
+One child asked, "But what if it had bitten you?"
+
+Mahavir said, "Even then, I would not have blamed it. Anger answered with anger only makes more anger. Peace answered with peace — that is the way." ☮️`,
+    think: "When someone is mean to you, do you want to be mean back? What do you think might happen if you stayed calm instead, like Mahavir did?",
+    moral: "Non-violence (ahimsa) is not just about not hurting — it is about responding to fear with peace."
+  },
+  {
+    id: 9,
+    title: "The Five Brave Ones",
+    age: "5-7",
+    tradition: "Sikh",
+    emoji: "🪯",
+    color: "#FFF8E1",
+    preview: "Guru Gobind Singh asked who was brave enough to give their head. Five hands went up!",
+    story: `🌅 It was the festival of Baisakhi, and thousands of Sikhs had gathered at Anandpur Sahib.
+
+Guru Gobind Singh stood before the crowd. His voice rang out like thunder:
+
+"Is there anyone here who is willing to give their head for Waheguru — for truth and justice?"
+
+The crowd went silent. People looked at each other nervously. 😰
+
+Then — one hand went up. A man named Daya Ram stepped forward. "I am ready, Guru Ji." 🙋
+
+Guru Ji took him inside the tent. A moment later — THWACK! 😮
+
+Everyone gasped. Then the Guru came out again. "I need another brave one."
+
+Again silence. Again — a hand. Dharam Das stepped forward.
+
+This happened five times. Five brave souls. The crowd was trembling.
+
+But then — Guru Ji came out of the tent… with ALL FIVE MEN! Alive! Dressed in blue, with turbans, faces glowing. ✨
+
+"I was testing your courage," Guru Ji said. "These five — the Panj Pyare, my Beloved Five — are the first members of the Khalsa. People who stand for truth even when it is hard."
+
+The crowd erupted in cheers. "Waheguru! Waheguru!" 🎉
+
+The five men smiled — not because they were heroes. But because they had overcome their own fear. And THAT was the real victory. 💪`,
+    think: "Each of the five men was scared but still stepped forward. Have you ever done something even though you were scared? How did it feel after?",
+    moral: "True bravery is not the absence of fear — it is doing what is right even when you are afraid."
+  },
+  {
+    id: 10,
+    title: "Yusuf and the Colorful Coat",
+    age: "5-7",
+    tradition: "Islamic",
+    emoji: "🧥",
+    color: "#FCE4EC",
+    preview: "His brothers were jealous of his colorful coat. But Yusuf's patience turned pain into purpose.",
+    story: `🌈 Prophet Yusuf (Joseph) had a coat of many colors — a gift from his beloved father. It shimmered like a rainbow. 🧥✨
+
+His brothers were jealous. "Why does Papa love Yusuf more?" they grumbled.
+
+One day, filled with jealousy, they threw Yusuf into a deep well and sold him to passing traders. 😢
+
+Yusuf was taken far away to Egypt. He had nothing. Not even his coat.
+
+But Yusuf didn't give up. He kept his heart clean of anger and bitterness. 💚
+
+He worked hard. He was honest. He was kind.
+
+In Egypt, he became known for his wisdom — he could understand dreams! 💭✨
+
+Years passed. A great famine struck the land. People came from everywhere for food — including his brothers.
+
+They didn't recognize the powerful man in front of them.
+
+"I am Yusuf," he said gently. "Your brother."
+
+They trembled, expecting punishment. 😨
+
+But Yusuf opened his arms. "Do not be afraid. What you meant for harm, Allah used for good. I forgive you." 🤗
+
+His brothers wept. His father was brought and reunited with him. 🥹
+
+Yusuf's patience had made something beautiful from something broken. Like how dark clouds always — always — bring rain that makes flowers grow. 🌸🌧️🌸`,
+    think: "Yusuf was treated unfairly but chose forgiveness over revenge. Has someone ever hurt you? How hard would it be to forgive them?",
+    moral: "Patience and forgiveness are the greatest strengths. What seems like a setback can lead to something wonderful."
+  },
+
+  // ── AGE 8–10 ──────────────────────────────────────────────────────
+  {
+    id: 11,
+    title: "Arjuna's Big Question",
+    age: "8-10",
+    tradition: "Mahabharata",
+    emoji: "⚔️",
+    color: "#E8EAF6",
+    preview: "Arjuna stood on the battlefield and saw his family on the other side. He dropped his bow and refused to fight.",
+    story: `⚔️ The two armies stood facing each other on the field of Kurukshetra.
+
+On one side — the Pandavas, fighting for justice. Arjuna, the greatest archer in the world, stood in the chariot driven by his dear friend and guide, Krishna.
+
+Arjuna looked across the battlefield. And his heart sank. 😔
+
+On the other side were his cousins. His teachers. His grandfather Bhishma. People he had grown up with. People he loved.
+
+"How can I fight them?" Arjuna whispered. He put down his bow. "I will not fight, Krishna. What is the point of winning a kingdom if I must kill my own family?"
+
+Krishna looked at Arjuna with calm, knowing eyes. 🔵
+
+"Arjuna, you are grieving for those who do not need your grief. The body dies, but the soul is eternal — it is never truly destroyed."
+
+"But—"
+
+"You are a warrior. Your duty — your dharma — is to fight for what is right. To run away from duty is not kindness. It is fear wearing the mask of love."
+
+Arjuna was quiet for a long time.
+
+"Do what is right," Krishna continued. "Not for reward, not from anger — but because it IS right. Offer your actions, and release the result."
+
+Slowly, Arjuna picked up his bow. 🏹
+
+Not because he wasn't afraid. But because he understood: some things must be done even when they are painful. Duty, truth, and courage — these are not always easy. But they are always necessary. 🌟`,
+    think: "Arjuna had to make the hardest choice of his life. Have you ever had to do the right thing even when it was painful or scary? What did you choose?",
+    moral: "Do what is right, not what is easy. Act from duty and love, not fear or anger."
+  },
+  {
+    id: 12,
+    title: "Rama's Hardest Choice",
+    age: "8-10",
+    tradition: "Ramayana",
+    emoji: "🏹",
+    color: "#FFF3E0",
+    preview: "Rama was about to be crowned king. Then his stepmother asked for one terrible favor.",
+    story: `👑 The entire kingdom of Ayodhya was decorated with flowers and lamps. Tomorrow, Prince Rama would be crowned King!
+
+Rama smiled, touched by the love of his people. His wife Sita held his hand. His brother Lakshmana beamed with pride. 🌸
+
+But that night, his stepmother Kaikeyi went to the old King Dasharatha with a dark request.
+
+Long ago, the King had promised her two wishes — anything she wanted. Now she was calling them in.
+
+"Send Rama to the forest for fourteen years. Crown MY son Bharata instead."
+
+King Dasharatha wept. He begged. But a promise is a promise. ❤️‍🩹
+
+When Rama was told, the whole palace held its breath. Surely he would be angry? Surely he would refuse?
+
+Rama simply folded his hands. 🙏
+
+"Father gave his word. I will go."
+
+"But you are being robbed of your crown!" Lakshmana cried.
+
+"A crown means nothing if it is built on a broken promise," Rama said quietly. "Our father's honor is worth more than a kingdom."
+
+Sita insisted on coming. Lakshmana refused to stay behind.
+
+They walked into the forest — no palace, no throne, no comfort.
+
+But Rama walked with peace in his heart. Because he knew: doing the right thing does not always feel like a reward. Sometimes, it feels like loss. But it IS the reward — because you remain true to who you are. 🌿`,
+    think: "Rama gave up something huge to keep his father's honor. Is there something right you gave up — or chose not to do — because it wasn't fair to others? How did that feel?",
+    moral: "Integrity means keeping your values even when it costs you something precious."
+  },
+  {
+    id: 13,
+    title: "The Merchant Who Let Go",
+    age: "8-10",
+    tradition: "Jain",
+    emoji: "💎",
+    color: "#F3E5F5",
+    preview: "A fabulously rich merchant had everything — but was deeply unhappy. Then he met a monk with nothing.",
+    story: `💼 Sethji was the richest merchant in the city.
+
+He had a mansion with marble floors, storerooms full of gold, chests of gems, and servants who ran at his every call. 💎🏛️
+
+But at night, Sethji could not sleep. He worried about his money. About thieves. About his business rivals. About his children not managing things well after him.
+
+His mind never rested. 😰
+
+One morning, he saw a Jain monk walking barefoot through the market. The monk had one simple robe and a small bowl. He was smiling — a deep, real smile.
+
+Sethji stopped him. "Swamiji, you have nothing. Yet you seem so… at peace. How?"
+
+The monk sat down in the dust and Sethji — a man who sat only on silk — sat beside him.
+
+"You own everything," the monk said, "but everything also owns you. You guard your gold, but your gold also guards your mind — it never lets it rest."
+
+"But if I give it all away, I'll have nothing!" Sethji protested.
+
+"What do you truly need?" the monk asked gently. "Think carefully."
+
+Sethji thought. Food. Shelter. Relationships. Health. None of those needed all that gold.
+
+"I'm not saying give it all away," the monk continued. "I'm saying: hold it lightly. Use it. But don't let it hold YOU."
+
+That night, Sethji donated half his wealth. He started a school. A hospital. A place for travelers to eat. 🏫🏥🍲
+
+He still had a business. But he slept. 😴
+
+He was still rich. But now he was free. ✨`,
+    think: "Sethji confused having more with being happy. What is something YOU have a lot of — toys, gadgets, things — that you worry about? Would your life change if you had less?",
+    moral: "True wealth is inner peace. Hold your possessions lightly — they are tools, not your identity."
+  },
+  {
+    id: 14,
+    title: "Mirabai's Unstoppable Song",
+    age: "8-10",
+    tradition: "Hindu",
+    emoji: "🎶",
+    color: "#FCE4EC",
+    preview: "A princess gave up her palace for her love of God — and sang even when they tried to silence her.",
+    story: `🎵 Princess Mirabai was born into royalty — jewels, servants, and a palace full of everything.
+
+But from childhood, she loved one thing above all else: singing to Lord Krishna. She would dance in the temple, eyes closed, heart open, completely lost in her devotion. 💙
+
+When she grew up, she was married to a prince. Her in-laws expected her to stop her songs and fit into the royal life.
+
+But Mirabai sang on. 🎶
+
+Her in-laws were furious. "You embarrass us! A princess does not dance in public temples!"
+
+They tried to stop her. They sent her a cup of poison and said it was a blessing to drink.
+
+Mirabai drank it — with a prayer on her lips.
+
+She did not die. 🌸
+
+They sent her a basket with a deadly cobra. She opened it praying.
+
+The cobra had turned into a flower garland. 🌺
+
+The stories say Krishna protected her. Perhaps. Or perhaps — love that pure cannot be destroyed.
+
+Eventually, Mirabai left the palace. She walked from temple to temple, singing. Common people — farmers, weavers, servants — gathered to hear her. Her songs were not complicated. They were honest and burning:
+
+"Without You, I cannot live. Without You, nothing shines."
+
+She became one of India's greatest poet-saints.
+
+Not because she was powerful. But because she refused to let anyone silence what was true inside her heart. 🔥`,
+    think: "Mirabai chose her truth over safety and approval. Is there something you believe deeply that others might not understand? How do you stay true to yourself?",
+    moral: "Your inner truth — what you love, what you believe — is worth protecting. Don't let the world silence it."
+  },
+  {
+    id: 15,
+    title: "The Langar That Fed an Army",
+    age: "8-10",
+    tradition: "Sikh",
+    emoji: "🍛",
+    color: "#E8F5E9",
+    preview: "Emperor Akbar visited the Guru's kitchen and was asked to do something no emperor ever did.",
+    story: `👑 The great Mughal Emperor Akbar had heard of the Golden Guru — Guru Amar Das — and the langar, the free kitchen that fed everyone without distinction.
+
+Curious, Akbar traveled with his royal entourage to see for himself.
+
+His ministers whispered: "Surely the Guru will make an exception. Surely the Emperor won't be asked to sit with common people?"
+
+But when they arrived, the sevadars — the humble volunteers — bowed respectfully and said what they said to everyone:
+
+"Pehle Pangat, Phir Sangat."
+🍲 First, you eat together. Then, you meet the Guru.
+
+Akbar looked at the rows of people sitting on the floor — farmers, merchants, women, the poor, the rich — all eating together from the same food. No high tables. No special treatment.
+
+His ministers shuffled uncomfortably.
+
+But Akbar — a great man in his own right — removed his royal shoes, sat on the floor, and accepted a simple meal. 🙏
+
+He ate. Quietly. Among people he would never have shared a table with before.
+
+When he finally met Guru Amar Das, he said with genuine awe: "I have sat in many palaces and held many courts. But I have never felt equality the way I did on that floor."
+
+"That is the Guru's message," the Guru said. "We are all the same before the One. No one sits higher. No one sits lower." ☝️🤲
+
+Akbar left changed. He later gave land to the Golden Temple. Not because he was asked. But because he had felt — on that earthen floor — something a palace could never give him. 💛`,
+    think: "Akbar was powerful but still chose to be humble. When do you feel the temptation to think you're 'better' than someone else? What can help you remember that everyone deserves respect?",
+    moral: "True greatness is not in rank or power — it is in treating every person as your equal."
+  }
+];
+
+// Color palettes for card banners
+const COLORS = {
+  Hindu: 'linear-gradient(135deg, #FF6B1A, #FFD700)',
+  Ramayana: 'linear-gradient(135deg, #1565C0, #42A5F5)',
+  Mahabharata: 'linear-gradient(135deg, #4A148C, #AB47BC)',
+  Jain: 'linear-gradient(135deg, #1B5E20, #66BB6A)',
+  Sikh: 'linear-gradient(135deg, #E65100, #FFCA28)',
+  Islamic: 'linear-gradient(135deg, #006064, #26C6DA)'
+};
+
+let activeAge = 'all';
+let activeTrad = 'all';
+
+function render() {
+  const grid = document.getElementById('grid');
+  const filtered = STORIES.filter(s =>
+    (activeAge === 'all' || s.age === activeAge) &&
+    (activeTrad === 'all' || s.tradition === activeTrad)
+  );
+  document.getElementById('storyCount').textContent =
+    `Showing ${filtered.length} of ${STORIES.length} stories`;
+  if (!filtered.length) {
+    grid.innerHTML = '<div class="no-stories">No stories match your filters. Try selecting "All"! 🌟</div>';
+    return;
+  }
+  grid.innerHTML = filtered.map(s => `
+    <div class="card" onclick="openModal(${s.id})">
+      <div class="card-banner" style="background:${COLORS[s.tradition]}">
+        ${s.emoji}
+        <span class="card-age-badge">Ages ${s.age}</span>
+        <span class="card-trad-badge">${s.tradition}</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">${s.title}</div>
+        <div class="card-preview">${s.preview}</div>
+        <div class="card-footer">
+          <span class="card-moral">${s.moral.substring(0,50)}…</span>
+          <button class="read-btn">Read ▶</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openModal(id) {
+  const s = STORIES.find(x => x.id === id);
+  document.getElementById('modalBanner').style.background = COLORS[s.tradition];
+  document.getElementById('modalBanner').textContent = s.emoji;
+  document.getElementById('modalMeta').innerHTML = `
+    <span class="badge badge-age">Ages ${s.age}</span>
+    <span class="badge badge-trad">${s.tradition}</span>
+  `;
+  document.getElementById('modalTitle').textContent = s.title;
+  document.getElementById('modalStory').textContent = s.story;
+  document.getElementById('modalThink').textContent = s.think;
+  document.getElementById('modalMoral').textContent = s.moral;
+  document.getElementById('waCopyBtn').onclick = () => copyForWhatsApp(s);
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function copyForWhatsApp(s) {
+  const ageLabel = { '2-4': 'Tiny Tales (Ages 2-4)', '5-7': 'Adventure Tales (Ages 5-7)', '8-10': 'Wisdom Tales (Ages 8-10)' }[s.age];
+  const text = `🌟 *Little Lights — ${ageLabel}*\n` +
+    `📖 *${s.title}*\n` +
+    `🏷️ ${s.tradition}\n\n` +
+    s.story + '\n\n' +
+    `🤔 *Think About It!*\n${s.think}\n\n` +
+    `✨ *Today's Lesson:* ${s.moral}`;
+  navigator.clipboard.writeText(text).then(() => {
+    document.getElementById('waCopyBtn').textContent = '✅ Copied! Open WhatsApp and paste.';
+    setTimeout(() => {
+      document.getElementById('waCopyBtn').textContent = '📋 Copy for WhatsApp';
+    }, 3000);
+  });
+}
+
+// Filter buttons
+document.querySelectorAll('.age-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    activeAge = btn.dataset.age;
+    document.querySelectorAll('.age-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    render();
+  });
+});
+document.querySelectorAll('.trad-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    activeTrad = btn.dataset.trad;
+    document.querySelectorAll('.trad-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    render();
+  });
+});
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('modalOverlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+});
+
+render();
+</script>
+</body>
+</html>
