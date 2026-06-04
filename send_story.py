@@ -41,7 +41,7 @@ STORIES = [
         "tradition": "Hindu 🕉️",
         "text": (
             "🌙 One full-moon night, little Ganesha — the elephant-headed god — went to a big feast. 🎉\n\n"
-            "There were mountains of round, golden laddoos! 🟡🟡🟡\n\n"
+            "There were mountains of round, golden laddoos! 🟡🟡\n\n"
             "Ganesha loved laddoos SO much. He ate one… then two… then TEN! 😋\n\n"
             "His big tummy became SO round that when he tried to ride his tiny mouse friend home — PLOP! — he fell right off! 🐭💨\n\n"
             "The Moon saw this and started to laugh. \"Ha ha ha! Look at the fat elephant!\" 😂🌕\n\n"
