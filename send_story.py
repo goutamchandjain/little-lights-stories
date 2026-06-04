@@ -41,7 +41,7 @@ STORIES = [
         "tradition": "Hindu 🕉️",
         "text": (
             "🌙 One full-moon night, little Ganesha — the elephant-headed god — went to a big feast. 🎉\n\n"
-            "There were mountains of round, golden laddoos! 🟡🟡\n\n"
+            "There were mountains of round, golden laddoos! 🟡🟡🟡\n\n"
             "Ganesha loved laddoos SO much. He ate one… then two… then TEN! 😋\n\n"
             "His big tummy became SO round that when he tried to ride his tiny mouse friend home — PLOP! — he fell right off! 🐭💨\n\n"
             "The Moon saw this and started to laugh. \"Ha ha ha! Look at the fat elephant!\" 😂🌕\n\n"
@@ -364,10 +364,10 @@ STORIES = [
     {
         "id": 15,
         "title": "The Langar That Fed an Army",
-        "age": "Ages 8–10 ",
-        "tradition": "Sikh ",
+        "age": "Ages 8–10 📚",
+        "tradition": "Sikh 🪯",
         "text": (
-            "Emperor Akbar had heard of Guru Amar Das — and the langar that fed everyone without distinction.\n\n"
+            "👑 Emperor Akbar had heard of Guru Amar Das — and the langar that fed everyone without distinction.\n\n"
             "He traveled to see for himself. His ministers whispered: \"Surely the Guru will make an exception for the Emperor?\"\n\n"
             "But the sevadars bowed and said:\n\n"
             "\"Pehle Pangat, Phir Sangat.\"\n\n"
@@ -381,7 +381,7 @@ STORIES = [
             "\"That is the Guru's message,\" the Guru said. \"We are all the same before the One. No one sits higher. No one sits lower.\" ☝️🤲\n\n"
             "Akbar left changed — because he had felt, on that earthen floor, something a palace could never give him. 💛"
         ),
-        "think": " *Think About It!*\nAkbar was powerful but still chose to be humble. When do you feel the temptation to think you're 'better' than someone else? What can help you remember that everyone deserves respect?",
+        "think": "🤔 *Think About It!*\nAkbar was powerful but still chose to be humble. When do you feel the temptation to think you're 'better' than someone else? What can help you remember that everyone deserves respect?",
         "moral": "✨ *Today's Lesson:* True greatness is not in rank or power — it is in treating every person as your equal."
     },
 ]
