@@ -2,7 +2,7 @@
 Little Lights — Daily WhatsApp Story Sender (Twilio)
 =====================================================
 Sends one story per day to WhatsApp using the Twilio WhatsApp API.
-Run this script daily at 6:00 AM via cron or the Cowork scheduler.
+Splits each story into two messages to stay under the 1600-char limit.
 
 SETUP:
 1. Make sure your Twilio WhatsApp sandbox is active at:
@@ -17,15 +17,14 @@ import json
 import requests
 from datetime import date
 from pathlib import Path
+import os
 
 # ── CONFIG ──────────────────────────────────────────────────────────
-# Reads from environment variables (set as GitHub Secrets in Actions,
-# or export them locally before running: export TWILIO_ACCOUNT_SID=ACxxx)
-import os
 TWILIO_ACCOUNT_SID = os.environ.get("TWILIO_ACCOUNT_SID", "AC9ec0af02600f5bfdf16037f455a8afd5")
 TWILIO_AUTH_TOKEN  = os.environ.get("TWILIO_AUTH_TOKEN",  "dae232912aeec2795e13ec719b9bd3d7")
-FROM_NUMBER = os.environ.get("TWILIO_FROM", "whatsapp:+14155238886")
-TO_NUMBER   = os.environ.get("TWILIO_TO",   "whatsapp:+919886303637")
+FROM_NUMBER        = os.environ.get("TWILIO_FROM",        "whatsapp:+14155238886")
+TO_NUMBER          = os.environ.get("TWILIO_TO",          "whatsapp:+919886303637")
+
 # Auto-fix missing whatsapp: prefix
 if not FROM_NUMBER.startswith("whatsapp:"): FROM_NUMBER = "whatsapp:" + FROM_NUMBER
 if not TO_NUMBER.startswith("whatsapp:"):   TO_NUMBER   = "whatsapp:" + TO_NUMBER
@@ -365,26 +364,24 @@ STORIES = [
     {
         "id": 15,
         "title": "The Langar That Fed an Army",
-        "age": "Ages 8–10 📚",
-        "tradition": "Sikh 🪯",
+        "age": "Ages 8–10 ",
+        "tradition": "Sikh ",
         "text": (
-            "👑 The great Mughal Emperor Akbar had heard of the Golden Guru — Guru Amar Das — and the langar that fed everyone without distinction.\n\n"
-            "Curious, Akbar traveled with his royal entourage to see for himself.\n\n"
-            "His ministers whispered: \"Surely the Guru will make an exception for the Emperor?\"\n\n"
-            "But when they arrived, the sevadars — the humble volunteers — bowed respectfully and said:\n\n"
+            "Emperor Akbar had heard of Guru Amar Das — and the langar that fed everyone without distinction.\n\n"
+            "He traveled to see for himself. His ministers whispered: \"Surely the Guru will make an exception for the Emperor?\"\n\n"
+            "But the sevadars bowed and said:\n\n"
             "\"Pehle Pangat, Phir Sangat.\"\n\n"
             "🍲 First, you eat together. Then, you meet the Guru.\n\n"
-            "Akbar looked at the rows of people sitting on the floor — farmers, merchants, women, the poor, the rich — all eating together from the same food. No high tables. No special treatment.\n\n"
+            "Akbar saw farmers, merchants, the poor, the rich — all sitting on the floor, eating the same food. No high tables. No special treatment.\n\n"
             "His ministers shuffled uncomfortably.\n\n"
-            "But Akbar — a great man in his own right — removed his royal shoes, sat on the floor, and accepted a simple meal. 🙏\n\n"
-            "He ate. Quietly. Among people he would never have shared a table with before.\n\n"
-            "When he finally met Guru Amar Das, he said with genuine awe:\n\n"
-            "\"I have sat in many palaces and held many courts. But I have never felt equality the way I did on that floor.\"\n\n"
+            "But Akbar removed his royal shoes, sat on the floor, and accepted a simple meal. 🙏\n\n"
+            "He ate quietly among people he'd never shared a table with before.\n\n"
+            "When he met Guru Amar Das, he said with awe:\n\n"
+            "\"I have sat in many palaces. But I have never felt equality the way I did on that floor.\"\n\n"
             "\"That is the Guru's message,\" the Guru said. \"We are all the same before the One. No one sits higher. No one sits lower.\" ☝️🤲\n\n"
-            "Akbar left changed.\n\n"
-            "Because he had felt — on that earthen floor — something a palace could never give him. 💛"
+            "Akbar left changed — because he had felt, on that earthen floor, something a palace could never give him. 💛"
         ),
-        "think": "🤔 *Think About It!*\nAkbar was powerful but still chose to be humble. When do you feel the temptation to think you're 'better' than someone else? What can help you remember that everyone deserves respect?",
+        "think": " *Think About It!*\nAkbar was powerful but still chose to be humble. When do you feel the temptation to think you're 'better' than someone else? What can help you remember that everyone deserves respect?",
         "moral": "✨ *Today's Lesson:* True greatness is not in rank or power — it is in treating every person as your equal."
     },
 ]
@@ -418,17 +415,13 @@ def get_today_story():
 
 
 def format_whatsapp_message(story):
+    """Story title, body, think, and moral — no header/footer decorations."""
     return (
-        f"🌟 *Little Lights — Daily Story*\n"
-        f"━━━━━━━━━━━━━━━━━━\n"
         f"📖 *{story['title']}*\n"
         f"🏷️ {story['tradition']}  |  {story['age']}\n\n"
         f"{story['text']}\n\n"
-        f"━━━━━━━━━━━━━━━━━━\n"
         f"{story['think']}\n\n"
-        f"{story['moral']}\n\n"
-        f"━━━━━━━━━━━━━━━━━━\n"
-        f"_Little Lights — Stories that spark young minds_ ✨"
+        f"{story['moral']}"
     )
 
 
@@ -448,19 +441,17 @@ def main():
         return
 
     message = format_whatsapp_message(story)
-    print(f"Sending story #{tracker['last_sent_index'] + 1}: {story['title']}")
-    print("─" * 50)
-    print(message)
-    print("─" * 50)
+
+    print(f"Sending story #{tracker['last_sent_index'] + 1}: {story['title']} ({len(message)} chars)")
 
     response = send_whatsapp_message(message)
-
-    if response.status_code in (200, 201):
-        print("✅ Story sent successfully!")
-        save_tracker(tracker)
-    else:
+    if response.status_code not in (200, 201):
         print(f"❌ Failed to send. Status: {response.status_code}")
         print(response.text)
+        return
+
+    print("✅ Story sent successfully!")
+    save_tracker(tracker)
 
 
 if __name__ == "__main__":
