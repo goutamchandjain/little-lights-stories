@@ -24,8 +24,11 @@ from pathlib import Path
 import os
 TWILIO_ACCOUNT_SID = os.environ.get("TWILIO_ACCOUNT_SID", "AC9ec0af02600f5bfdf16037f455a8afd5")
 TWILIO_AUTH_TOKEN  = os.environ.get("TWILIO_AUTH_TOKEN",  "dae232912aeec2795e13ec719b9bd3d7")
-FROM_NUMBER        = os.environ.get("TWILIO_FROM",        "whatsapp:+14155238886")
-TO_NUMBER          = os.environ.get("TWILIO_TO",          "whatsapp:+919886303637")
+FROM_NUMBER = os.environ.get("TWILIO_FROM", "whatsapp:+14155238886")
+TO_NUMBER   = os.environ.get("TWILIO_TO",   "whatsapp:+919886303637")
+# Auto-fix missing whatsapp: prefix
+if not FROM_NUMBER.startswith("whatsapp:"): FROM_NUMBER = "whatsapp:" + FROM_NUMBER
+if not TO_NUMBER.startswith("whatsapp:"):   TO_NUMBER   = "whatsapp:" + TO_NUMBER
 # ────────────────────────────────────────────────────────────────────
 
 TRACKER_FILE = Path(__file__).parent / "story_tracker.json"
