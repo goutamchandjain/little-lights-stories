@@ -12,9 +12,23 @@ Every story ends with a **"Think About It"** question written specifically for t
 | File | Location | Purpose |
 |------|----------|---------|
 | `stories_library.html` | repo root | Interactive browser app — filter by age & category, search, read stories, copy for WhatsApp |
+| `index.html` | repo root | Same content as `stories_library.html`, duplicated so GitHub Pages serves it at the repo's root URL |
+| `.nojekyll` | repo root | Empty file that tells GitHub Pages to skip Jekyll processing and serve the HTML as-is |
 | `send_story.py` | repo root | Python script that sends one story/day via Twilio WhatsApp API |
 | `story_tracker.json` | repo root | Tracks which story was last sent so it never repeats until the full cycle finishes |
 | `.github/workflows/main.yml` | repo root | GitHub Actions workflow — runs at 6 AM IST daily |
+
+---
+
+## Live Web Access (GitHub Pages)
+
+The story library is hosted online and viewable from any device — phone, tablet, laptop — with no login needed.
+
+- **Live URL:** https://goutamchandjain.github.io/little-lights-stories/
+- **Also works at:** https://goutamchandjain.github.io/little-lights-stories/stories_library.html
+- **Hosting setup:** Settings → Pages → Source: *Deploy from a branch* → Branch: `main`, folder: `/ (root)`
+- **How it updates:** Any push to `main` that changes `index.html` or `stories_library.html` republishes automatically within a minute or two — no separate deploy step needed
+- **To edit the library later:** update both `index.html` and `stories_library.html` together (they're kept as identical copies) so the root URL and the named URL never drift apart
 
 ---
 
@@ -113,4 +127,4 @@ Edit `story_tracker.json`, set `last_sent_index` to one less than the story numb
 
 ---
 
-*Last updated: July 2026 — expanded from 15 to 100 stories across Religion, Science, Fiction, Drama, and Fun.*
+*Last updated: July 2026 — expanded from 15 to 100 stories across Religion, Science, Fiction, Drama, and Fun, and published to GitHub Pages for remote web access.*
